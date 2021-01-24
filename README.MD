@@ -1,10 +1,8 @@
-# Code Interview App
+# Code Interview App React
 
-[![Build status](https://neilb.visualstudio.com/Git%20Neil/_apis/build/status/Code-Interview-Site-Tests%20CI)](https://neilb.visualstudio.com/Git%20Neil/_build/latest?definitionId=12)
+React version of my code interview app. Allows everyone to watch the candidate as they type on the left pane and see the UX in the right pane. Adds support for TypeScript and React intellisense. App was written in TypeScript and .NET Core for the backend.
 
-A web app for conducting code interviews. Allows everyone to watch the candidate as they type. Also allows the code to be run in the browser to see the output. Designed to watch a single coder however includes experimental co-authoring capability. Currently only supports the Javascript language. App was written in TypeScript and .NET Core for the backend.
-
-See demo here: https://www.neilb.net/codeinterview/
+See demo here: https://www.neilb.net/codeinterviewreact/
 
 # Debug Locally
 
@@ -30,8 +28,6 @@ See demo here: https://www.neilb.net/codeinterview/
 - run `dotnet test`
 - to run the ux unit tests cd into CodeInterviewApp\wwwroot
 - run `node .\node_modules\cypress\bin\cypress open`
-- watch e2e video at
-  - https://www.neilb.net/codeinterview/videos/codeinterview.spec.js.mp4
 
 # Dotnet Core Commands Reference
 
