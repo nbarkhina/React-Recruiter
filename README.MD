@@ -1,6 +1,6 @@
 # Code Interview App React
 
-A web app for conducting code interviews. This is a React version of my code interview app. Allows everyone to watch the candidate as they type on the left pane and see the UX in the right pane. Adds support for TypeScript and React intellisense. App was written in TypeScript and .NET Core for the backend.
+A web app for conducting code interviews. This is a React version of my code interview app. Allows everyone to watch the candidate as they type on the left pane and see the UX on the right pane. Adds support for TypeScript and React intellisense. App was written in TypeScript and .NET Core for the backend.
 
 See demo here: https://www.neilb.net/codeinterviewreact/
 
