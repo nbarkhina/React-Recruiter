@@ -1,0 +1,31 @@
+{
+  "name": "temp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ",
+    "start-server": "node .\\node_modules\\serve\\bin\\serve.js -l 5500",
+    "test": "node .\\node_modules\\cypress\\bin\\cypress run",
+    "open": "node .\\node_modules\\cypress\\bin\\cypress open",
+    "ci": "node .\\node_modules\\start-server-and-test\\src\\bin\\start.js start-server http://localhost:5500 test",
+    "run-all": "node .\\node_modules\\npm-run-all\\bin\\npm-run-all\\index.js --parallel start-server test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://neilb.visualstudio.com/Git%20Neil/_git/Typescript%20Starter"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jquery": "^3.3.29",
+    "@types/requirejs": "^2.1.31",
+    "@types/react": "^16.9.20",
+    "@types/react-dom": "^16.9.0",
+    "monaco-editor": "^0.21.2",
+    "serve": "^11.2.0"
+  },
+  "devDependencies": {
+    "cypress": "^3.8.1"
+  }
+}

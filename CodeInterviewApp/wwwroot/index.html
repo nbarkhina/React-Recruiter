@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Code Interview Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rivets/0.9.6/rivets.bundled.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/4.0.2/typescript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.0.0/split.min.js"></script>
+    <script type="text/javascript">
+        var rando = Math.floor(Math.random() * Math.floor(100000));
+        var script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
+        script.setAttribute("data-main", 'config.js?v=' + rando);
+        document.getElementsByTagName('head')[0].appendChild(script);
+        rivets.formatters["eq"] = function (value, arg) {return value == arg;};
+        rivets.formatters["lt"] = function (value, arg) {return value < arg;};
+        rivets.formatters["gt"] = function (value, arg) {return value > arg;};
+    </script>
+    <link rel="stylesheet" href="index.css?v=1">
+    <style>
+        /* LIGHT VERSION */
+        .myGlyphMarginClass {
+    
+            background: rgb(168, 220, 236);
+        }
+    
+        .myContentClass {
+            background: rgb(227, 245, 250);
+        }
+
+        body{
+            background-color: rgb(241, 241, 241);
+        }
+
+        .gutter {
+            cursor: e-resize;
+            height: 100%;
+            background: rgb(240, 239, 239);
+        }
+
+        /* #monContainer{
+            margin-top:20px;margin-bottom:20px;margin-right:50px;margin-left:50px;min-height:400px;border:1px solid grey;
+            box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+        } */
+
+        /* DARK VERSION */
+        /* .myGlyphMarginClass {
+	        background: rgb(119, 165, 179);
+        }
+        .myContentClass {
+            background: rgb(54, 66, 70);
+        } */
+
+    </style>
+</head>
+<body>
+    <div id="loadingDiv" style="text-align: center;">
+        <br><br><br>
+        Loading...
+    </div>
+    <div id="divMain" style="opacity: 0;">
+        <div class="container text-center">
+            <h1>
+                { data.title }
+            </h1>
+            <!-- <button class="btn btn-primary mt-4 ml-2" onclick="myApp.heightShrink()"
+                        data-toggle="tooltip" data-placement="bottom" title="Decrease code editor size">-</button>
+                    <button class="btn btn-primary mt-4 ml-2" onclick="myApp.heightGrow()"
+                        data-toggle="tooltip" data-placement="bottom" title="Increase code editor size">+</button> -->
+            <table style="margin-left: auto;margin-right: auto;">
+                <tr>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Options
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" onclick="myApp.heightShrink()">Shrink Code Editor</a>
+                                <a class="dropdown-item" onclick="myApp.heightGrow()">Enlarge Code Editor</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary ml-2" onclick="myApp.btnRunCode()">Run Code</button>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- <button class="btn btn-success mt-4 ml-2" rv-if="data.run_updates" onclick="myApp.stopUpdate()">Connected</button>
+                    <button class="btn btn-danger mt-4 ml-2" rv-if="data.stop_updates" onclick="myApp.stopUpdate()">Disconnected</button> -->
+        
+            <!-- <input class="form-control mt-4" type="password"
+                        placeholder="Enter Password" rv-value="data.password"> -->
+        
+            <div class="form-check mt-4">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" rv-checked="data.edit_mode"
+                        onchange="myApp.chkEditCodeChanged()">
+                    Edit Code
+                </label>
+            </div>
+            <div>
+                <span id="spanViewers" title="" data-placement="bottom" data-toggle="tooltip">Viewers:&nbsp;<b>{ data.num_viewers }</b></span>
+                <span id="spanEditors" title="" data-placement="bottom" data-toggle="tooltip">&nbsp;Editors:&nbsp;<b>{ data.num_editors }</b></span>
+                <!-- &nbsp;Counter:&nbsp;<b>{ data.update_counter }</b> -->
+                &nbsp;<span rv-show="data.current_version | lt 0">MERGING CONTENT</span>
+                <!-- <div rv-if="data.show_warning" class="alert alert-danger"
+                    style="width: 50%;margin-left: auto;margin-right: auto;" role="alert">
+                    WARNING: Co-Authoring is experimental
+                </div> -->
+            </div>
+        </div>
+        
+        <!-- <div id="monContainer" ></div> -->
+        <div id="splitOuter" style="height: 400px;display: flex;margin-left: 10px;margin-right: 10px;">
+            <div class="split editorLeft">
+                <div id="monContainer" style="height:400px;border:1px solid grey;">
+                </div>
+            </div>
+            <div class="split editorRight">
+                <div id="divOutput"
+                    style="height: 400px;background-color: white; border:1px solid grey;overflow-y: scroll;">
+                </div>
+            </div>
+        </div>
+        <div id="divMessage" style="height:20px; margin-bottom: 37px; margin-top: 10px;display: none;" class="container" >
+            <div class="alert alert-danger" role="alert" rv-html="data.message" rv-if="data.message" style="padding: 5px; text-align: center;"></div>
+        </div>
+    </div>
+
+
+    <!--  Name Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Code Interview App</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="nameForm">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" id="txtName" autocomplete="off"
+                                placeholder="Please enter a name" required>
+                            <div class="invalid-feedback">
+                                Name is required
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="myApp.showApp()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
